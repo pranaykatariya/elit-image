@@ -1,3 +1,11 @@
+import threading
+import time
+import tweepy
+from tweepy import OAuthHandler
+import requests
+import re
+
+
 from flask import Flask
 from flask_restful import reqparse,Api,Resource
 from flask_cors import CORS, cross_origin
@@ -12,6 +20,8 @@ warnings.filterwarnings("ignore")
 
 parser = reqparse.RequestParser()
 parser.add_argument('query')
+
+
 
 exitFlag = 0
 
@@ -76,12 +86,3 @@ thread1.start()
 # thread2.start()
 
 print ("Exiting Main Thread")
-
-
-app = Flask(__name__)
-CORS(app)
-api = Api(app)
-api.add_resource(Spam, '/')
-
-if __name__ == "__main__":
-    app.run()
