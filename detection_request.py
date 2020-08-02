@@ -17,9 +17,9 @@ parser.add_argument('query')
 
 exitFlag = 0
 
-class myThread (threading.Thread):
-    
+# class Spam(Resource):
 
+class myThread (threading.Thread, Resource):
 
     def __init__(self, threadID, name, counter):
         threading.Thread.__init__(self)
@@ -28,16 +28,14 @@ class myThread (threading.Thread):
         self.counter = counter
    
     def run(self):
-        def load(response):
-            np_image = Image.open(BytesIO(response.content))
-            np_image = np.array(np_image).astype('float32') / 255
-            np_image = transform.resize(np_image, (224, 224, 3))
-            np_image = np.expand_dims(np_image, axis=0)
-            return np_image
+            def load(response):
+                np_image = Image.open(BytesIO(response.content))
+                np_image = np.array(np_image).astype('float32') / 255
+                np_image = transform.resize(np_image, (224, 224, 3))
+                np_image = np.expand_dims(np_image, axis=0)
+                return np_image
 
-
-        class Spam(Resource):
-
+        # class Spam(Resource):
             @cross_origin
             def get(self):
                 args = parser.parse_args()
@@ -83,7 +81,7 @@ print ("Exiting Main Thread")
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
-# api.add_resource(Spam, '/')
+api.add_resource(myThread, '/')
 
 if __name__ == "__main__":
     app.run()
