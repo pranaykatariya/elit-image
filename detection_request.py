@@ -27,7 +27,7 @@ class myThread (threading.Thread, Resource):
         self.name = name
         self.counter = counter
    
-    def run(self):
+    def run(self):  
             def load(response):
                 np_image = Image.open(BytesIO(response.content))
                 np_image = np.array(np_image).astype('float32') / 255
@@ -81,7 +81,7 @@ print ("Exiting Main Thread")
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
-api.add_resource(myThread, '/')
+api.add_resource(myThread(1, "Thread-1", 1), '/')
 
 if __name__ == "__main__":
     app.run()
