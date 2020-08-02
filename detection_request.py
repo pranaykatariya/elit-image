@@ -83,7 +83,7 @@ print ("Exiting Main Thread")
 app = Flask(__name__)
 CORS(app)
 api = Api(app)
-api.add_resource(Spam, '/')
+# api.add_resource(Spam, '/')
 
 if __name__ == "__main__":
     app.run()
