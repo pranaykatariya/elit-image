@@ -8,6 +8,8 @@ from skimage import transform
 import requests
 from io import BytesIO
 import warnings
+import time
+import threading
 warnings.filterwarnings("ignore")
 
 parser = reqparse.RequestParser()
@@ -27,11 +29,11 @@ class myThread (threading.Thread):
    
     def run(self):
         def load(response):
-        np_image = Image.open(BytesIO(response.content))
-        np_image = np.array(np_image).astype('float32') / 255
-        np_image = transform.resize(np_image, (224, 224, 3))
-        np_image = np.expand_dims(np_image, axis=0)
-        return np_image
+            np_image = Image.open(BytesIO(response.content))
+            np_image = np.array(np_image).astype('float32') / 255
+            np_image = transform.resize(np_image, (224, 224, 3))
+            np_image = np.expand_dims(np_image, axis=0)
+            return np_image
 
 
         class Spam(Resource):
